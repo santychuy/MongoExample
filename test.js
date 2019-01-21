@@ -69,4 +69,40 @@ db.customers.update(
 )
 
 
+//Hará una modificacion, pero si no se encuentra ese objeto, lo creará
+db.customers.update(
+    {firstName: 'Sebastian'},
+    {
+        firstName: 'Sebastian',
+        lastName: 'Carrasco'
+    },
+    {upsert: true}
+)
 
+//Cambiar el nombre de la key, la propiedad de un valor
+db.customers.update(
+    {firstName: 'Sebastian'},
+    {
+        $rename: {firstName: 'primerNombre'}
+    }
+)
+
+//Ahora para eliminar datos
+db.customers.remove(
+    {primerNombre: 'Sebastian'}//,
+    //{justOne: true} el mismo nombre lo dice
+)
+
+
+//Hacer una busqueda de datos, dependiendo si cumple con un requisito o la otra
+db.customers.find(
+    {$or: [{firstName: 'Santiago'}, {firstName: 'Santy'}]}
+)
+
+
+//Hacer busqueda pero con condiciones, aqui será una condicion numerica
+
+db.customers.find(
+    {age: {$gt: 23}} //Busca por el parametro y con una condicion de mayor que (>)
+    //{age: {$lt: 23}} Busca por el parametro y con una condicion de menor que (<)
+)
